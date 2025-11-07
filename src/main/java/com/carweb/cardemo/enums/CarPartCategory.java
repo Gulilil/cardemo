@@ -1,4 +1,4 @@
-package com.carweb.cardemo.model;
+package com.carweb.cardemo.enums;
 
 public enum CarPartCategory {
     POWERPLANT,

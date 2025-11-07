@@ -1,7 +1,7 @@
 package com.carweb.cardemo.model;
 
+import com.carweb.cardemo.enums.CarColor;
 import jakarta.persistence.*;
-import java.util.UUID;
 
 @Entity
 public class TwoWheelsCar extends Car {

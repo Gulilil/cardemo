@@ -1,5 +1,6 @@
 package com.carweb.cardemo.model;
 
+import com.carweb.cardemo.enums.CarColor;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class Car {
     public void setBrand(String brand) {
         this.brand = brand;
     }
-    public void getPrice(Double price){
+    public void setPrice(Double price){
         this.price = price;
     }
 
@@ -78,7 +79,7 @@ public class Car {
     public void removePartByName (String name){
         this.parts.removeIf(part -> part.getName().equals(name));
     }
-
-
-
+    public void removePartById (UUID id) {
+        this.parts.removeIf(part -> part.getId().equals(id));
+    }
 }
