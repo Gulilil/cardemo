@@ -2,6 +2,8 @@
 
 A **Spring Boot RESTful API** for managing cars and their parts. Supports multiple car types (Electrical, Sport, Two-Wheels), CRUD operations, and automatic retrieval of related car parts.
 
+**Author : Juan Christopher Santoso**
+
 ---
 
 ## Features
@@ -149,4 +151,5 @@ mvn spring-boot:run
 ```
 http://localhost:8080/cars
 ```
+
 
