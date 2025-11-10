@@ -23,7 +23,7 @@ public class Car {
     private Double price;
     private Boolean isDeleted = Boolean.FALSE;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CarPart> parts = new ArrayList<CarPart>();
 
     // Constructor
@@ -79,9 +79,6 @@ public class Car {
     }
     public void changeDeletionMark(){
         this.isDeleted = !this.isDeleted;
-    }
-    public void setParts(List<CarPart> parts){
-        this.parts = parts;
     }
 
     // Manage Parts

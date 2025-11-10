@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/car-parts")
@@ -23,11 +24,13 @@ public class PostCarPart {
 
     @Autowired
     private CarPartRepository carPartRepository;
+    @Autowired
+    private CarRepository carRepository;
 
     private ResponseEntity validate(Map<String, Object> payload) {
         List<String> payloadKeys = payload.keySet().stream().toList();
         String category = payload.get("category").toString();
-        if (!this.constant.validCategories.contains(category)){
+        if (!this.constant.carPartCategoryMap.keySet().stream().toList().contains(category)){
             return new ResponseEntity(new IllegalArgumentException(), "Invalid car part category");
         }
         if (!this.constant.isAllRequiredItemContained(this.constant.requiredCarPartParams, payloadKeys)){
@@ -60,6 +63,11 @@ public class PostCarPart {
             newCarPart.setPrice(price);
         }
         carPartRepository.save(newCarPart);
+
+        UUID car_id = UUID.fromString(payload.get("car_id").toString());
+        Car car = carRepository.findById(car_id).orElse(null);
+        car.addPart(newCarPart);
+        carRepository.save(car);
 
         ResponseEntity response = new ResponseEntity(newCarPart, "Creation success");
         return response.getJsonResponse();

@@ -25,6 +25,7 @@ public class CarPart {
     private Boolean isDeleted = Boolean.FALSE;
 
     // Constructor
+    public CarPart() {}
     public CarPart(String name, CarPartCategory category){
         this.name = name;
         this.category = category;
@@ -49,6 +50,7 @@ public class CarPart {
     public Boolean isNotDeleted() {
         return !this.isDeleted;
     }
+    public Car getCar() { return this.car; }
 
     // Setter
     public void setName(String name) {
@@ -65,6 +67,9 @@ public class CarPart {
     }
     public void changeDeletionMark(){
         this.isDeleted = !this.isDeleted;
+    }
+    public void setCar(Car car){
+        this.car = car;
     }
 
 }
