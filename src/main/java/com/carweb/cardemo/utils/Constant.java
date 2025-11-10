@@ -26,6 +26,7 @@ public class Constant {
     public List<String> requiredElectricalCarParams = List.of("battery_capacity", "charging_time");
     public List<String> requiredTwoWheelsCarParams = List.of("engine_cc");
     public List<String> requiredSportCarParams = List.of("horse_power");
+    public List<String> requiredCarPartParams = List.of("name", "category");
 
     public CarColor colorStrToEnum (String color) {
         return this.carColorMap.get(color);

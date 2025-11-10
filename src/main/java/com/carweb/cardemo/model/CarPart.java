@@ -3,10 +3,7 @@ package com.carweb.cardemo.model;
 
 import com.carweb.cardemo.enums.CarColor;
 import com.carweb.cardemo.enums.CarPartCategory;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -17,10 +14,14 @@ public class CarPart {
     private String name;
     private String brand;
 
+    @ManyToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
+
     @Enumerated(EnumType.STRING)
     private CarPartCategory category;
     private Double price;
-    private Boolean isDeleted = false;
+    private Boolean isDeleted = Boolean.FALSE;
 
     // Constructor
     public CarPart(String name, CarPartCategory category){

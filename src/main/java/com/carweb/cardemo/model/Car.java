@@ -21,9 +21,9 @@ public class Car {
     @Enumerated(EnumType.STRING)
     private CarColor color;
     private Double price;
-    private Boolean isDeleted = false;
+    private Boolean isDeleted = Boolean.FALSE;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CarPart> parts = new ArrayList<CarPart>();
 
     // Constructor
@@ -77,6 +77,9 @@ public class Car {
     }
     public void changeDeletionMark(){
         this.isDeleted = !this.isDeleted;
+    }
+    public void setParts(List<CarPart> parts){
+        this.parts = parts;
     }
 
     // Manage Parts
