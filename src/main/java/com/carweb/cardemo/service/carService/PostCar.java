@@ -113,8 +113,5 @@ public class PostCar {
 
         ResponseEntity response = new ResponseEntity(newCar, "Creation success");
         return response.getJsonResponse();
-
     }
-
-
 }

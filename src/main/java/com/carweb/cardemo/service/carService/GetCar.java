@@ -23,6 +23,8 @@ import java.util.UUID;
 @RequestMapping("/cars")
 public class GetCar {
 
+    private Constant constant;
+
     @Autowired
     private CarRepository carRepository;
     @Autowired
@@ -45,9 +47,29 @@ public class GetCar {
         return sportCarRepository.findAll().stream().filter(Car::isNotDeleted).toList();
     }
 
+    public ResponseEntity validate(Map<String, String> params){
+        if (params.containsKey("category") && !this.constant.validCategories.contains(params.get("category").toString())){
+            return new ResponseEntity(new IllegalArgumentException(), "Invalid car category");
+        }
+        if (params.containsKey("id")){
+            try {
+                UUID val_uuid = UUID.fromString(params.get("id").toString());
+            } catch (Exception e) {
+                return new ResponseEntity(new IllegalArgumentException(), "Invalid UUID format");
+            }
+        }
+
+        return new ResponseEntity(new Object(), "");
+    }
+
     @GetMapping
-    public ResponseEntity getCars(@RequestParam Map<String, String> params){
+    public Map<String, Object> getCars(@RequestParam Map<String, String> params){
         List<Car> cars;
+
+        ResponseEntity validationResponse = this.validate(params);
+        if (!validationResponse.getIsSuccess()){
+            return validationResponse.getJsonResponse();
+        }
 
         // Detect category
         if (params.containsKey("category")){
@@ -56,10 +78,8 @@ public class GetCar {
                 cars = new ArrayList<>(this.getAllElectricalCars());
             } else if (categoryStr.equals("two_wheels")){
                 cars = new ArrayList<>(this.getAllTwoWheelsCars());
-            } else if (categoryStr.equals("sport")){
+            } else { // (categoryStr.equals("sport"))
                 cars = new ArrayList<>(this.getAllSportCars());
-            } else {
-                return new ResponseEntity(new IllegalArgumentException(), "Invalid car category");
             }
         } else {
             cars = this.getAllCars();
@@ -68,12 +88,8 @@ public class GetCar {
         for (String key: params.keySet()){
             String val = params.get(key);
             if (key.equals("id")){
-                try {
-                    UUID val_uuid = UUID.fromString(val);
-                    cars = cars.stream().filter(car -> car.getId().equals(val_uuid)).toList();
-                } catch (Exception e) {
-                    return new ResponseEntity(new IllegalArgumentException(), "Invalid UUID format");
-                }
+                UUID val_uuid = UUID.fromString(val);
+                cars = cars.stream().filter(car -> car.getId().equals(val_uuid)).toList();
             }
             else if (key.equals("name")){
                 cars = cars.stream().filter(car -> car.getName().equals(val)).toList();
@@ -86,8 +102,7 @@ public class GetCar {
                 cars = cars.stream().filter(car -> car.getReleasedYear().equals(releasedYearInteger)).toList();
             }
         }
-        return new ResponseEntity(cars, "");
+        ResponseEntity response = new ResponseEntity(cars, "Retrieve success");
+        return response.getJsonResponse();
     }
-
-
 }
