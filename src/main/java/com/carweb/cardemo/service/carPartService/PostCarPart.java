@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/cars")
+@RequestMapping("/car-parts")
 public class PostCarPart {
 
-    private Constant constant;
+    private final static Constant constant = new Constant();
 
     @Autowired
     private CarPartRepository carPartRepository;
@@ -30,7 +30,7 @@ public class PostCarPart {
         if (!this.constant.validCategories.contains(category)){
             return new ResponseEntity(new IllegalArgumentException(), "Invalid car part category");
         }
-        if (this.constant.isAllRequiredItemContained(this.constant.requiredCarPartParams, payloadKeys)){
+        if (!this.constant.isAllRequiredItemContained(this.constant.requiredCarPartParams, payloadKeys)){
             return new ResponseEntity(new IllegalArgumentException(), "Insufficient data to construct car part");
         }
         return new ResponseEntity(new Object(), "");

@@ -24,7 +24,7 @@ import java.util.Map;
 @RequestMapping("/cars")
 public class PostCar {
 
-    private Constant constant;
+    private final static Constant constant = new Constant();
 
     @Autowired
     private CarRepository carRepository;
@@ -44,21 +44,21 @@ public class PostCar {
         if (!this.constant.validCategories.contains(category)){
             return new ResponseEntity(new IllegalArgumentException(), "Invalid car category");
         }
-        if (this.constant.isAllRequiredItemContained(this.constant.requiredCarParams, payloadKeys)){
+        if (!this.constant.isAllRequiredItemContained(this.constant.requiredCarParams, payloadKeys)){
             return new ResponseEntity(new IllegalArgumentException(), "Insufficient data to construct car");
         }
         if (category.equals("electrical")){
-            if (this.constant.isAllRequiredItemContained(this.constant.requiredElectricalCarParams, payloadKeys)){
+            if (!this.constant.isAllRequiredItemContained(this.constant.requiredElectricalCarParams, payloadKeys)){
                 return new ResponseEntity(new IllegalArgumentException(), "Insufficient data to construct electrical car");
             }
         }
         if (category.equals("two_wheels")) {
-            if (this.constant.isAllRequiredItemContained(this.constant.requiredTwoWheelsCarParams, payloadKeys)) {
+            if (!this.constant.isAllRequiredItemContained(this.constant.requiredTwoWheelsCarParams, payloadKeys)) {
                 return new ResponseEntity(new IllegalArgumentException(), "Insufficient data to construct two wheels car");
             }
         }
         if (category.equals("sport")) {
-            if (this.constant.isAllRequiredItemContained(this.constant.requiredSportCarParams, payloadKeys)) {
+            if (!this.constant.isAllRequiredItemContained(this.constant.requiredSportCarParams, payloadKeys)) {
                 return new ResponseEntity(new IllegalArgumentException(), "Insufficient data to construct sport car");
             }
         }

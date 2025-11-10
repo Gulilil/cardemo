@@ -9,6 +9,9 @@ public class TwoWheelsCar extends Car {
     private Double engineCC;
     private Boolean hasSideCar = Boolean.FALSE;
 
+    public TwoWheelsCar() {
+        super();
+    }
     public TwoWheelsCar(String name, String brand, CarColor color,
                          Double engineCC)  {
         super(name, brand, color);

@@ -9,6 +9,10 @@ public class ElectricalCar extends Car{
     private Integer batteryCapacity;
     private Integer chargingTime;
 
+    public ElectricalCar() {
+        super();
+    }
+
     public ElectricalCar(String name, String brand, CarColor color,
                          Integer batteryCapacity, Integer chargingTime)  {
         super(name, brand, color);

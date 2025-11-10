@@ -20,7 +20,7 @@ import java.util.UUID;
 @RequestMapping("/car-parts")
 public class GetCarPart {
 
-    private Constant constant;
+    private final static Constant constant = new Constant();
 
     @Autowired
     private CarPartRepository carPartRepository;

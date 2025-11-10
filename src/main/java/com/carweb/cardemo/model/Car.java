@@ -27,6 +27,8 @@ public class Car {
     private List<CarPart> parts = new ArrayList<CarPart>();
 
     // Constructor
+    public Car () {}
+
     public Car (String name, String brand, CarColor color) {
         this.name = name;
         this.brand = brand;

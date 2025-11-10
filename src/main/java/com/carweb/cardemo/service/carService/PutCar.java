@@ -22,7 +22,7 @@ import java.util.UUID;
 @RequestMapping("/cars")
 public class PutCar {
 
-    private Constant constant;
+    private final static Constant constant = new Constant();
 
     @Autowired
     private CarRepository carRepository;
@@ -42,32 +42,29 @@ public class PutCar {
         if (!this.constant.validCategories.contains(category)){
             return new ResponseEntity(new IllegalArgumentException(), "Invalid car category");
         }
-        try {
-            UUID val_uuid = UUID.fromString(id);
-            Car car = carRepository.findById(val_uuid).orElse(null);
-            if (car.equals(null)){
+
+        UUID val_uuid = UUID.fromString(id);
+        Car car = carRepository.findById(val_uuid).orElse(null);
+        if (car.equals(null)){
+            return new ResponseEntity(new IllegalArgumentException(), "No data with the given ID");
+        }
+        if (category.equals("electrical")){
+            ElectricalCar electricalCar = electricalCarRepository.findById(val_uuid).orElse(null);
+            if (electricalCar.equals(null)){
                 return new ResponseEntity(new IllegalArgumentException(), "No data with the given ID");
             }
-            if (category.equals("electrical")){
-                ElectricalCar electricalCar = electricalCarRepository.findById(val_uuid).orElse(null);
-                if (electricalCar.equals(null)){
-                    return new ResponseEntity(new IllegalArgumentException(), "No data with the given ID");
-                }
+        }
+        if (category.equals("two_wheels")){
+            TwoWheelsCar twoWheelsCar = twoWheelsCarRepository.findById(val_uuid).orElse(null);
+            if (twoWheelsCar.equals(null)){
+                return new ResponseEntity(new IllegalArgumentException(), "No data with the given ID");
             }
-            if (category.equals("two_wheels")){
-                TwoWheelsCar twoWheelsCar = twoWheelsCarRepository.findById(val_uuid).orElse(null);
-                if (twoWheelsCar.equals(null)){
-                    return new ResponseEntity(new IllegalArgumentException(), "No data with the given ID");
-                }
+        }
+        if (category.equals("sport")){
+            SportCar sportCar = sportCarRepository.findById(val_uuid).orElse(null);
+            if (sportCar.equals(null)){
+                return new ResponseEntity(new IllegalArgumentException(), "No data with the given ID");
             }
-            if (category.equals("sport")){
-                SportCar sportCar = sportCarRepository.findById(val_uuid).orElse(null);
-                if (sportCar.equals(null)){
-                    return new ResponseEntity(new IllegalArgumentException(), "No data with the given ID");
-                }
-            }
-        } catch (Exception e) {
-            return new ResponseEntity(new IllegalArgumentException(), "Invalid UUID format");
         }
         return new ResponseEntity(new Object(), "");
     }

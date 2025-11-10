@@ -23,7 +23,7 @@ import java.util.UUID;
 @RequestMapping("/cars")
 public class GetCar {
 
-    private Constant constant;
+    private final static Constant constant = new Constant();
 
     @Autowired
     private CarRepository carRepository;

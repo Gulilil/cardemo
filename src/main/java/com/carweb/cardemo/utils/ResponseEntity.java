@@ -3,20 +3,20 @@ package com.carweb.cardemo.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ResponseEntity {
-    private final Exception exceptionType;
+public class ResponseEntity<T> {
+    private final String exceptionType;
     private final String message;
-    private final Object data;
+    private final T data;
     private final Boolean isSuccess;
 
     public ResponseEntity(Exception exceptionType, String message){
         this.data = null;
         this.message = message;
-        this.exceptionType = exceptionType;
+        this.exceptionType = exceptionType.getClass().getSimpleName();
         this.isSuccess = Boolean.FALSE;
     }
 
-    public ResponseEntity(Object data, String message){
+    public ResponseEntity(T data, String message){
         this.data = data;
         this.message = message;
         this.exceptionType = null;
@@ -26,7 +26,7 @@ public class ResponseEntity {
     public Map<String, Object> getJsonResponse() {
         Map<String, Object> responseJson = new HashMap<>();
         responseJson.put("data", this.data);
-        responseJson.put("type", this.exceptionType.getClass().getSimpleName());
+        responseJson.put("type", this.exceptionType);
         responseJson.put("message", this.message);
         responseJson.put("isSuccess", this.isSuccess);
         return responseJson;

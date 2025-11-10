@@ -8,6 +8,10 @@ public class SportCar extends Car{
     private Integer horsePower;
     private Double topSpeed;
 
+    public SportCar() {
+        super();
+    }
+
     public SportCar(String name, String brand, CarColor color,
                          Integer horsePower)  {
         super(name, brand, color);
