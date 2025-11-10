@@ -21,6 +21,7 @@ public class Car {
     @Enumerated(EnumType.STRING)
     private CarColor color;
     private Double price;
+    private Boolean isDeleted = false;
 
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     private List<CarPart> parts = new ArrayList<CarPart>();
@@ -54,6 +55,9 @@ public class Car {
     public List<CarPart> getParts() {
         return this.parts;
     }
+    public Boolean isNotDeleted() {
+        return !this.isDeleted;
+    }
 
     // Setter
     public void setName(String name) {
@@ -70,6 +74,9 @@ public class Car {
     }
     public void setPrice(Double price){
         this.price = price;
+    }
+    public void changeDeletionMark(){
+        this.isDeleted = !this.isDeleted;
     }
 
     // Manage Parts

@@ -15,4 +15,17 @@ public class ElectricalCar extends Car{
         this.batteryCapacity = batteryCapacity;
         this.chargingTime = chargingTime;
     }
+
+    public Integer getBatteryCapacity() {
+        return this.batteryCapacity;
+    }
+    public Integer getChargingTime() {
+        return this.chargingTime;
+    }
+    public void setBatteryCapacity(Integer batteryCapacity) {
+        this.batteryCapacity = batteryCapacity;
+    }
+    public void setChargingTime(Integer chargingTime) {
+        this.chargingTime = chargingTime;
+    }
 }

@@ -5,12 +5,26 @@ import jakarta.persistence.*;
 
 @Entity
 public class SportCar extends Car{
-    private Integer horsepower;
+    private Integer horsePower;
     private Double topSpeed;
 
     public SportCar(String name, String brand, CarColor color,
-                         Integer horsepower)  {
+                         Integer horsePower)  {
         super(name, brand, color);
-        this.horsepower = horsepower;
+        this.horsePower = horsePower;
     }
+
+    public Integer getHorsePower() {
+        return this.horsePower;
+    }
+    public Double getTopSpeed() {
+        return this.topSpeed;
+    }
+    public void setHorsePower(Integer horsePower) {
+        this.horsePower = horsePower;
+    }
+    public void setTopSpeed(Double topSpeed) {
+        this.topSpeed = topSpeed;
+    }
+
 }

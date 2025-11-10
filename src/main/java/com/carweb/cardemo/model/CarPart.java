@@ -20,6 +20,7 @@ public class CarPart {
     @Enumerated(EnumType.STRING)
     private CarPartCategory category;
     private Double price;
+    private Boolean isDeleted = false;
 
     // Constructor
     public CarPart(String name, CarPartCategory category){
@@ -43,6 +44,9 @@ public class CarPart {
     public CarPartCategory getCategory() {
         return this.category;
     }
+    public Boolean isNotDeleted() {
+        return !this.isDeleted;
+    }
 
     // Setter
     public void setName(String name) {
@@ -56,6 +60,9 @@ public class CarPart {
     }
     public void setCategory(CarPartCategory category){
         this.category = category;
+    }
+    public void changeDeletionMark(){
+        this.isDeleted = !this.isDeleted;
     }
 
 }
