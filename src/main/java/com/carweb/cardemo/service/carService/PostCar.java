@@ -47,14 +47,20 @@ public class PostCar {
         if (this.constant.isAllRequiredItemContained(this.constant.requiredCarParams, payloadKeys)){
             return new ResponseEntity(new IllegalArgumentException(), "Insufficient data to construct car");
         }
-        if (this.constant.isAllRequiredItemContained(this.constant.requiredElectricalCarParams, payloadKeys)){
-            return new ResponseEntity(new IllegalArgumentException(), "Insufficient data to construct electrical car");
+        if (category.equals("electrical")){
+            if (this.constant.isAllRequiredItemContained(this.constant.requiredElectricalCarParams, payloadKeys)){
+                return new ResponseEntity(new IllegalArgumentException(), "Insufficient data to construct electrical car");
+            }
         }
-        if (this.constant.isAllRequiredItemContained(this.constant.requiredTwoWheelsCarParams, payloadKeys)){
-            return new ResponseEntity(new IllegalArgumentException(), "Insufficient data to construct two wheels car");
+        if (category.equals("two_wheels")) {
+            if (this.constant.isAllRequiredItemContained(this.constant.requiredTwoWheelsCarParams, payloadKeys)) {
+                return new ResponseEntity(new IllegalArgumentException(), "Insufficient data to construct two wheels car");
+            }
         }
-        if (this.constant.isAllRequiredItemContained(this.constant.requiredSportCarParams, payloadKeys)){
-            return new ResponseEntity(new IllegalArgumentException(), "Insufficient data to construct sport car");
+        if (category.equals("sport")) {
+            if (this.constant.isAllRequiredItemContained(this.constant.requiredSportCarParams, payloadKeys)) {
+                return new ResponseEntity(new IllegalArgumentException(), "Insufficient data to construct sport car");
+            }
         }
         return new ResponseEntity(new Object(), "");
     }
